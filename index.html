@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyal Advisory - Financial & Business Advisory Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <h2>Eyal Advisory</h2>
+            </div>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                    <li class="nav__item"><a href="#services" class="nav__link">Services</a></li>
+                    <li class="nav__item"><a href="#approach" class="nav__link">Approach</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <span>&times;</span>
+                </div>
+            </div>
+            <div class="nav__toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero__overlay"></div>
+        <div class="hero__content container">
+            <h1 class="hero__title">
+                Strategic Financial Advisory <br>
+                <span class="highlight">For Business Success</span>
+            </h1>
+            <p class="hero__description">
+                Expert CFO services, accounting, tax planning, and transaction advisory to drive your business forward
+            </p>
+            <div class="hero__buttons">
+                <a href="#contact" class="btn btn--primary">Get Started</a>
+                <a href="#about" class="btn btn--secondary">Learn More</a>
+            </div>
+        </div>
+        <div class="hero__scroll">
+            <a href="#about" class="scroll-down">
+                <span>Scroll Down</span>
+                <div class="scroll-arrow"></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats__grid">
+                <div class="stat__item">
+                    <h3 class="stat__number" data-target="20">0</h3>
+                    <p class="stat__label">Years Experience</p>
+                </div>
+                <div class="stat__item">
+                    <h3 class="stat__number" data-target="150">0</h3>
+                    <p class="stat__label">Clients Served</p>
+                </div>
+                <div class="stat__item">
+                    <h3 class="stat__number" data-target="500">0</h3>
+                    <p class="stat__label">Transactions Completed</p>
+                </div>
+                <div class="stat__item">
+                    <h3 class="stat__number" data-target="100">0</h3>
+                    <p class="stat__label">Client Satisfaction %</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="about__grid">
+                <div class="about__content">
+                    <span class="section__subtitle">About Us</span>
+                    <h2 class="section__title">Excellence in Financial Advisory</h2>
+                    <p class="about__description">
+                        Eyal Advisory is a trusted financial and business advisory firm providing comprehensive CFO services,
+                        accounting solutions, tax planning, and transaction advisory. With deep industry expertise and a
+                        commitment to excellence, we help businesses navigate complex financial challenges and achieve sustainable growth.
+                    </p>
+                    <p class="about__description">
+                        Our team of experienced professionals delivers strategic insights and practical solutions tailored to your
+                        unique business needs, ensuring financial clarity and operational efficiency at every stage of your journey.
+                    </p>
+                    <div class="about__features">
+                        <div class="feature">
+                            <div class="feature__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="feature__title">Proven Track Record</h4>
+                                <p class="feature__text">Consistent performance across market cycles</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 6v6l4 2"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="feature__title">Client-Focused</h4>
+                                <p class="feature__text">Personalized strategies aligned with your goals</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about__image">
+                    <div class="image__wrapper">
+                        <img src="Roey.jpeg" alt="Eyal Advisory - Professional Financial Services" class="about__img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services section" id="services">
+        <div class="container">
+            <div class="section__header">
+                <span class="section__subtitle">Our Services</span>
+                <h2 class="section__title">Comprehensive Business Advisory Services</h2>
+            </div>
+            <div class="services__grid">
+                <div class="service__card">
+                    <div class="service__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="service__title">Outsourced CFO</h3>
+                    <p class="service__description">
+                        Strategic financial leadership without the cost of a full-time executive. We provide expert
+                        CFO services including financial planning, forecasting, cash flow management, and strategic
+                        decision support to drive your business growth.
+                    </p>
+                </div>
+                <div class="service__card">
+                    <div class="service__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="service__title">Accounting</h3>
+                    <p class="service__description">
+                        Comprehensive accounting services including bookkeeping, financial statement preparation,
+                        month-end close, accounts payable/receivable, and financial reporting to ensure accurate
+                        and timely financial information for decision-making.
+                    </p>
+                </div>
+                <div class="service__card">
+                    <div class="service__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service__title">Taxes</h3>
+                    <p class="service__description">
+                        Proactive tax planning and compliance services to minimize tax liability while ensuring
+                        full regulatory compliance. Including tax strategy, preparation, filing, and representation
+                        for businesses and individuals.
+                    </p>
+                </div>
+                <div class="service__card">
+                    <div class="service__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="service__title">Transaction Services</h3>
+                    <p class="service__description">
+                        Expert guidance through mergers, acquisitions, and strategic transactions. We provide
+                        due diligence, valuation, deal structuring, and post-transaction integration support
+                        to maximize value and minimize risk.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Approach Section -->
+    <section class="approach section" id="approach">
+        <div class="container">
+            <div class="section__header">
+                <span class="section__subtitle">Our Approach</span>
+                <h2 class="section__title">Client-Centered Advisory Process</h2>
+            </div>
+            <div class="approach__content">
+                <div class="approach__steps">
+                    <div class="step">
+                        <div class="step__number">01</div>
+                        <h3 class="step__title">Discovery & Assessment</h3>
+                        <p class="step__description">
+                            We begin by understanding your business, goals, and challenges through comprehensive
+                            analysis of your financial position, operations, and strategic objectives.
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step__number">02</div>
+                        <h3 class="step__title">Strategy & Planning</h3>
+                        <p class="step__description">
+                            Develop customized solutions and actionable strategies tailored to your specific needs,
+                            whether it's financial planning, tax optimization, or transaction support.
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step__number">03</div>
+                        <h3 class="step__title">Implementation</h3>
+                        <p class="step__description">
+                            Execute strategies with precision and expertise, providing hands-on support and
+                            guidance throughout the process to ensure seamless integration.
+                        </p>
+                    </div>
+                    <div class="step">
+                        <div class="step__number">04</div>
+                        <h3 class="step__title">Ongoing Support</h3>
+                        <p class="step__description">
+                            Maintain continuous partnership with regular monitoring, reporting, and strategic
+                            adjustments to adapt to your evolving business needs and market conditions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta__content">
+                <h2 class="cta__title">Ready to Transform Your Business?</h2>
+                <p class="cta__description">
+                    Partner with Eyal Advisory and experience the difference that expert financial guidance
+                    and strategic support can make in achieving your business objectives.
+                </p>
+                <a href="#contact" class="btn btn--primary">Schedule a Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="contact__grid">
+                <div class="contact__info">
+                    <h2 class="section__title">Get In Touch</h2>
+                    <p class="contact__description">
+                        Discover how Eyal Advisory can help you achieve your business goals.
+                        Contact us today to schedule a confidential consultation.
+                    </p>
+                    <div class="contact__details">
+                        <div class="contact__item">
+                            <div class="contact__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Office Location</h4>
+                                <p>123 Financial District<br>New York, NY 10005</p>
+                            </div>
+                        </div>
+                        <div class="contact__item">
+                            <div class="contact__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact__item">
+                            <div class="contact__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>contact@eyaladvisory.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact__form">
+                    <form id="contactForm">
+                        <div class="form__group">
+                            <input type="text" id="name" class="form__input" placeholder="Your Name" required>
+                        </div>
+                        <div class="form__group">
+                            <input type="email" id="email" class="form__input" placeholder="Your Email" required>
+                        </div>
+                        <div class="form__group">
+                            <input type="tel" id="phone" class="form__input" placeholder="Phone Number">
+                        </div>
+                        <div class="form__group">
+                            <textarea id="message" class="form__input form__textarea" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__column">
+                    <h3 class="footer__logo">Eyal Advisory</h3>
+                    <p class="footer__description">
+                        Strategic financial advisory services to drive your business forward with expert CFO guidance, accounting, and tax solutions.
+                    </p>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__title">Quick Links</h4>
+                    <ul class="footer__links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#approach">Approach</a></li>
+                    </ul>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__title">Services</h4>
+                    <ul class="footer__links">
+                        <li><a href="#services">Outsourced CFO</a></li>
+                        <li><a href="#services">Accounting</a></li>
+                        <li><a href="#services">Taxes</a></li>
+                        <li><a href="#services">Transaction Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer__column">
+                    <h4 class="footer__title">Connect</h4>
+                    <div class="footer__social">
+                        <a href="#" class="social__link">LinkedIn</a>
+                        <a href="#" class="social__link">Twitter</a>
+                        <a href="#" class="social__link">Facebook</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Eyal Advisory. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p class="footer__disclaimer">Professional advice tailored to your business needs. Every business is unique.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
