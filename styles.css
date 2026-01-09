@@ -32,6 +32,8 @@
 
 html {
     scroll-behavior: smooth;
+    /* Fix for iOS Safari 100vh issue */
+    height: -webkit-fill-available;
 }
 
 body {
@@ -208,7 +210,10 @@ ul {
 /* =============== HERO SECTION =============== */
 .hero {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
+    min-height: -webkit-fill-available; /* iOS Safari fix */
+    min-height: 100dvh; /* Modern browsers - dynamic viewport height */
+    padding-top: 80px; /* Account for fixed header */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -869,6 +874,12 @@ ul {
     }
 
     /* Hero */
+    .hero {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+        padding-top: 100px; /* Extra space on mobile for better appearance */
+    }
+
     .hero__title {
         font-size: 36px;
     }
@@ -971,5 +982,23 @@ ul {
 
     .about__img {
         height: 250px;
+    }
+}
+
+/* =============== iOS SAFE AREA SUPPORT =============== */
+@supports (padding: max(0px)) {
+    .header {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+    }
+
+    .hero__content {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+    }
+
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
     }
 }
