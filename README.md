@@ -162,3 +162,4 @@ For issues or questions, please refer to the documentation or modify the code to
 
 **Built with:** HTML5 | CSS3 | Vanilla JavaScript
 **No frameworks required** - Pure, performant code
+
