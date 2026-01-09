@@ -235,11 +235,11 @@ ul {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: blur(3px);
-    transform: scale(1.05); /* Prevent blur edge artifacts */
+    /* No blur - clear image */
+    transform: scale(1.0);
 }
 
-/* Dark overlay on top of blurred image */
+/* Lighter overlay for better image visibility */
 .hero__overlay {
     position: absolute;
     top: 0;
@@ -248,9 +248,9 @@ ul {
     height: 100%;
     background: linear-gradient(
         135deg,
-        rgba(26, 40, 73, 0.65) 0%,
-        rgba(44, 62, 95, 0.55) 50%,
-        rgba(26, 40, 73, 0.65) 100%
+        rgba(26, 40, 73, 0.45) 0%,
+        rgba(44, 62, 95, 0.35) 50%,
+        rgba(26, 40, 73, 0.45) 100%
     );
     z-index: 2;
 }
@@ -919,7 +919,7 @@ ul {
     }
 
     .hero__bg-image {
-        filter: blur(2px); /* Less blur on mobile for better clarity */
+        /* Clear image on mobile too */
     }
 
     .hero__title {
