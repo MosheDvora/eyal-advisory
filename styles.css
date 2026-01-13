@@ -1,9 +1,9 @@
 /* =============== ROOT VARIABLES =============== */
 :root {
     /* Colors */
-    --primary-color: #1a2849;
+    --primary-color: #006847;
     --secondary-color: #c9a96e;
-    --accent-color: #2c3e5f;
+    --accent-color: #008560;
     --text-color: #333;
     --text-light: #666;
     --bg-color: #ffffff;
@@ -144,7 +144,7 @@ ul {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(26, 40, 73, 0.95);
+    background-color: rgba(0, 104, 71, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
     transition: var(--transition);
@@ -248,9 +248,9 @@ ul {
     height: 100%;
     background: linear-gradient(
         135deg,
-        rgba(26, 40, 73, 0.45) 0%,
-        rgba(44, 62, 95, 0.35) 50%,
-        rgba(26, 40, 73, 0.45) 100%
+        rgba(0, 104, 71, 0.45) 0%,
+        rgba(0, 133, 96, 0.35) 50%,
+        rgba(0, 104, 71, 0.45) 100%
     );
     z-index: 2;
 }
