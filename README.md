@@ -5,7 +5,7 @@ A modern, professional static website for a financial and business advisory firm
 ## Features
 
 ### Design & Layout
-- **Professional Design**: Clean, corporate design with a green and gold color scheme
+- **Professional Design**: Clean, corporate design with a navy blue and gold color scheme
 - **Fully Responsive**: Mobile-first design that works perfectly on all devices
 - **Smooth Animations**: Scroll-based animations, fade-ins, and transitions
 - **Modern Typography**: Google Fonts (Playfair Display for headings, Inter for body text)
@@ -69,9 +69,9 @@ Edit the CSS variables in `styles.css` (lines 2-10):
 
 ```css
 :root {
-    --primary-color: #006847;      /* Main green (British Racing Green) */
+    --primary-color: #1a2849;      /* Main navy blue */
     --secondary-color: #c9a96e;    /* Gold accent */
-    --accent-color: #008560;       /* Secondary green (lighter teal) */
+    --accent-color: #2c3e5f;       /* Secondary blue */
     --text-color: #333;            /* Main text */
     --text-light: #666;            /* Secondary text */
 }
