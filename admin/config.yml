@@ -1,0 +1,116 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Enable local backend for development
+local_backend: true
+
+# Media files configuration
+media_folder: "images"
+public_folder: "/images"
+
+# Collections
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "Site Content"
+        name: "content"
+        file: "content.json"
+        fields:
+          # Company Info
+          - label: "Company Information"
+            name: "company"
+            widget: "object"
+            fields:
+              - {label: "Company Name", name: "name", widget: "string", default: "Eyal Advisory"}
+              - {label: "Tagline", name: "tagline", widget: "string"}
+
+          # Hero Section
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {label: "Main Title Line 1", name: "title_line1", widget: "string"}
+              - {label: "Main Title Line 2 (Highlighted)", name: "title_line2", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Primary Button Text", name: "button_primary", widget: "string"}
+              - {label: "Secondary Button Text", name: "button_secondary", widget: "string"}
+              - {label: "Background Image", name: "background_image", widget: "image", required: false}
+
+          # Stats Section
+          - label: "Statistics"
+            name: "stats"
+            widget: "object"
+            fields:
+              - {label: "Years Experience", name: "years", widget: "number", value_type: "int"}
+              - {label: "Clients Served", name: "clients", widget: "number", value_type: "int"}
+              - {label: "Transactions Completed", name: "transactions", widget: "number", value_type: "int"}
+              - {label: "Client Satisfaction %", name: "satisfaction", widget: "number", value_type: "int"}
+
+          # About Section
+          - label: "About Section"
+            name: "about"
+            widget: "object"
+            fields:
+              - {label: "Subtitle", name: "subtitle", widget: "string"}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description Paragraph 1", name: "description1", widget: "text"}
+              - {label: "Description Paragraph 2", name: "description2", widget: "text"}
+              - {label: "About Image", name: "image", widget: "image", required: false}
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                fields:
+                  - {label: "Feature Title", name: "title", widget: "string"}
+                  - {label: "Feature Text", name: "text", widget: "string"}
+
+          # Services Section
+          - label: "Services"
+            name: "services"
+            widget: "object"
+            fields:
+              - {label: "Subtitle", name: "subtitle", widget: "string"}
+              - {label: "Title", name: "title", widget: "string"}
+              - label: "Service Items"
+                name: "items"
+                widget: "list"
+                fields:
+                  - {label: "Service Title", name: "title", widget: "string"}
+                  - {label: "Service Description", name: "description", widget: "text"}
+
+          # Approach Section
+          - label: "Approach Section"
+            name: "approach"
+            widget: "object"
+            fields:
+              - {label: "Subtitle", name: "subtitle", widget: "string"}
+              - {label: "Title", name: "title", widget: "string"}
+              - label: "Steps"
+                name: "steps"
+                widget: "list"
+                fields:
+                  - {label: "Step Title", name: "title", widget: "string"}
+                  - {label: "Step Description", name: "description", widget: "text"}
+
+          # CTA Section
+          - label: "Call to Action"
+            name: "cta"
+            widget: "object"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Button Text", name: "button_text", widget: "string"}
+
+          # Contact Section
+          - label: "Contact Information"
+            name: "contact"
+            widget: "object"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Office Address Line 1", name: "address_line1", widget: "string"}
+              - {label: "Office Address Line 2", name: "address_line2", widget: "string"}
+              - {label: "Phone Number", name: "phone", widget: "string"}
+              - {label: "Email Address", name: "email", widget: "string"}
+              - {label: "Business Hours", name: "hours", widget: "string"}

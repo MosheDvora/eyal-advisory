@@ -1,0 +1,95 @@
+{
+  "company": {
+    "name": "Eyal Advisory",
+    "tagline": "Strategic Financial Advisory For Business Success"
+  },
+  "hero": {
+    "title_line1": "Strategic Financial Advisory",
+    "title_line2": "For Business Success",
+    "description": "Expert CFO services, accounting, tax planning, and transaction advisory to drive your business forward",
+    "button_primary": "Get Started",
+    "button_secondary": "Learn More",
+    "background_image": "Gemini-v1.png"
+  },
+  "stats": {
+    "years": 20,
+    "clients": 150,
+    "transactions": 500,
+    "satisfaction": 100
+  },
+  "about": {
+    "subtitle": "About Us",
+    "title": "Excellence in Financial Advisory",
+    "description1": "Eyal Advisory is a trusted financial and business advisory firm providing comprehensive CFO services, accounting solutions, tax planning, and transaction advisory. With deep industry expertise and a commitment to excellence, we help businesses navigate complex financial challenges and achieve sustainable growth.",
+    "description2": "Our team of experienced professionals delivers strategic insights and practical solutions tailored to your unique business needs, ensuring financial clarity and operational efficiency at every stage of your journey.",
+    "image": "Roey.jpeg",
+    "features": [
+      {
+        "title": "Proven Track Record",
+        "text": "Consistent performance across market cycles"
+      },
+      {
+        "title": "Client-Focused",
+        "text": "Personalized strategies aligned with your goals"
+      }
+    ]
+  },
+  "services": {
+    "subtitle": "Our Services",
+    "title": "Comprehensive Business Advisory Services",
+    "items": [
+      {
+        "title": "Outsourced CFO",
+        "description": "Strategic financial leadership without the cost of a full-time executive. We provide expert CFO services including financial planning, forecasting, cash flow management, and strategic decision support to drive your business growth."
+      },
+      {
+        "title": "Accounting",
+        "description": "Comprehensive accounting services including bookkeeping, financial statement preparation, month-end close, accounts payable/receivable, and financial reporting to ensure accurate and timely financial information for decision-making."
+      },
+      {
+        "title": "Taxes",
+        "description": "Proactive tax planning and compliance services to minimize tax liability while ensuring full regulatory compliance. Including tax strategy, preparation, filing, and representation for businesses and individuals."
+      },
+      {
+        "title": "Transaction Services",
+        "description": "Expert guidance through mergers, acquisitions, and strategic transactions. We provide due diligence, valuation, deal structuring, and post-transaction integration support to maximize value and minimize risk."
+      }
+    ]
+  },
+  "approach": {
+    "subtitle": "Our Approach",
+    "title": "Client-Centered Advisory Process",
+    "steps": [
+      {
+        "title": "Discovery & Assessment",
+        "description": "We begin by understanding your business, goals, and challenges through comprehensive analysis of your financial position, operations, and strategic objectives."
+      },
+      {
+        "title": "Strategy & Planning",
+        "description": "Develop customized solutions and actionable strategies tailored to your specific needs, whether it's financial planning, tax optimization, or transaction support."
+      },
+      {
+        "title": "Implementation",
+        "description": "Execute strategies with precision and expertise, providing hands-on support and guidance throughout the process to ensure seamless integration."
+      },
+      {
+        "title": "Ongoing Support",
+        "description": "Maintain continuous partnership with regular monitoring, reporting, and strategic adjustments to adapt to your evolving business needs and market conditions."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to Transform Your Business?",
+    "description": "Partner with Eyal Advisory and experience the difference that expert financial guidance and strategic support can make in achieving your business objectives.",
+    "button_text": "Schedule a Consultation"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "description": "Discover how Eyal Advisory can help you achieve your business goals. Contact us today to schedule a confidential consultation.",
+    "address_line1": "123 Financial District",
+    "address_line2": "New York, NY 10005",
+    "phone": "+1 (555) 123-4567",
+    "email": "contact@eyaladvisory.com",
+    "hours": "Monday - Friday: 9:00 AM - 6:00 PM"
+  }
+}
