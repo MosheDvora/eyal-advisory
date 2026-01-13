@@ -377,5 +377,5 @@ if ('scrollRestoration' in history) {
 }
 
 // =============== LOG INITIALIZATION ===============
-console.log('%c Eyal Advisory Website ', 'background: #006847; color: #c9a96e; font-size: 16px; padding: 10px;');
+console.log('%c Eyal Advisory Website ', 'background: #1a2849; color: #c9a96e; font-size: 16px; padding: 10px;');
 console.log('Website initialized successfully');
