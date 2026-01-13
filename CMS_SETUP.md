@@ -5,35 +5,32 @@ Your website now includes a powerful Content Management System powered by Decap 
 
 ## Accessing the CMS
 
-### Step 1: Enable Netlify Identity
-1. Go to your Netlify dashboard
-2. Select your site
-3. Navigate to **Settings** > **Identity**
-4. Click **Enable Identity**
+### 🔒 הגנה עם סיסמה
+האתר מוגן בסיסמה פשוטה ללא צורך ברישום או Netlify Identity!
 
-### Step 2: Enable Git Gateway
-1. In the same Identity settings
-2. Scroll to **Services** > **Git Gateway**
-3. Click **Enable Git Gateway**
+### כניסה לממשק הניהול
+1. גש ל: `https://yourdomain.com/admin`
+2. תראה מסך התחברות בעברית
+3. הזן את הסיסמה הראשונית: **`admin123`**
+4. לחץ על "כניסה"
 
-### Step 3: Invite Users
-1. Still in Identity settings
-2. Click **Invite users**
-3. Enter the email address of who should manage content
-4. They'll receive an invitation email
+⚠️ **חשוב:** שנה את הסיסמה מיד לאחר הכניסה הראשונה!
+📖 ראה מדריך מפורט ב: `admin/PASSWORD_CHANGE.md`
 
-### Step 4: Access the Admin Panel
-Once set up, access your CMS at:
-```
-https://yourdomain.com/admin
-```
+### שינוי סיסמה
+ראה את המדריך המלא בקובץ: **admin/PASSWORD_CHANGE.md**
+
+קצר:
+1. צור Hash ב: https://emn178.github.io/online-tools/sha256.html
+2. עדכן את הקובץ `admin/index.html` (שורה 209)
+3. שמור ופרסם
 
 ## How to Edit Content
 
-### Login
-1. Visit `https://yourdomain.com/admin`
-2. Click "Login with Netlify Identity"
-3. Enter your credentials
+### התחברות
+1. גש ל: `https://yourdomain.com/admin`
+2. הזן את הסיסמה (ברירת מחדל: `admin123`)
+3. לחץ "כניסה"
 
 ### Edit Content
 1. After logging in, you'll see "Site Settings"
