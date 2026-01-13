@@ -1,146 +1,174 @@
-# Content Management System (CMS) Setup Guide
+# מדריך ניהול תוכן האתר
 
-## Overview
-Your website now includes a powerful Content Management System powered by Decap CMS (formerly Netlify CMS). This allows you to edit all website content through a user-friendly interface without touching any code.
+## סקירה כללית
+האתר שלך כולל מערכת ניהול תוכן פשוטה ונוחה המאפשרת לערוך את כל תוכן האתר בקלות, ללא צורך בידע טכני.
 
-## Accessing the CMS
-
-### 🔒 הגנה עם סיסמה
-האתר מוגן בסיסמה פשוטה ללא צורך ברישום או Netlify Identity!
+## 🔒 גישה למערכת
 
 ### כניסה לממשק הניהול
-1. גש ל: `https://yourdomain.com/admin`
-2. תראה מסך התחברות בעברית
-3. הזן את הסיסמה הראשונית: **`admin123`**
-4. לחץ על "כניסה"
+1. גש לכתובת: `https://yourdomain.com/admin`
+2. הזן את הסיסמה הראשונית: **`admin123`**
+3. לחץ על "כניסה"
 
-⚠️ **חשוב:** שנה את הסיסמה מיד לאחר הכניסה הראשונה!
-📖 ראה מדריך מפורט ב: `admin/PASSWORD_CHANGE.md`
+⚠️ **חשוב:** שנה את הסיסמה מיד לאחר הכניסה הראשונה! (ראה מדריך למטה)
 
-### שינוי סיסמה
-ראה את המדריך המלא בקובץ: **admin/PASSWORD_CHANGE.md**
+## 📝 איך לערוך תוכן באתר
 
-קצר:
-1. צור Hash ב: https://emn178.github.io/online-tools/sha256.html
-2. עדכן את הקובץ `admin/index.html` (שורה 209)
-3. שמור ופרסם
+### תהליך עריכת תוכן:
 
-## How to Edit Content
+1. **התחבר למערכת** עם הסיסמה
+2. **ערוך את התוכן** בשדות הרצויים
+3. **לחץ "שמור שינויים"**
+4. **לחץ "הורד קובץ"** - הקובץ `content.json` יורד למחשב שלך
+5. **העלה את הקובץ ל-GitHub** (ראה הוראות למטה)
 
-### התחברות
-1. גש ל: `https://yourdomain.com/admin`
-2. הזן את הסיסמה (ברירת מחדל: `admin123`)
-3. לחץ "כניסה"
+### מדורים הניתנים לעריכה:
 
-### Edit Content
-1. After logging in, you'll see "Site Settings"
-2. Click on **Site Content**
-3. You'll see all editable sections:
+#### 🎯 מסך ראשי (Hero)
+- כותרת ראשית (2 שורות)
+- תיאור קצר
+- טקסט לכפתורים
 
-#### Sections Available for Editing:
+#### 📊 סטטיסטיקות
+- שנות ניסיון
+- מספר לקוחות
+- עסקאות שהושלמו
+- אחוז שביעות רצון
 
-**Company Information**
-- Company Name
-- Tagline
+#### ℹ️ אודות
+- כותרות ותיאורים
+- פסקאות טקסט
 
-**Hero Section**
-- Main title (Line 1 and Line 2)
-- Description
-- Button texts
-- Background image
+#### 💼 שירותים
+- 4 כרטיסי שירות
+- כותרת ותיאור לכל שירות
 
-**Statistics**
-- Years of experience
-- Number of clients
-- Transactions completed
-- Client satisfaction percentage
+#### 📞 יצירת קשר
+- כתובת המשרד
+- טלפון
+- אימייל
 
-**About Section**
-- Subtitle and title
-- Two description paragraphs
-- About image
-- Feature highlights (2 items)
+## 📤 איך להעלות את התוכן המעודכן ל-GitHub
 
-**Services**
-- Section title and subtitle
-- 4 service cards (title + description each)
+לאחר שהורדת את הקובץ `content.json`, עקוב אחר השלבים הבאים:
 
-**Approach Section**
-- Section title and subtitle
-- 4 process steps (title + description each)
+### דרך 1: דרך ממשק GitHub (מומלץ)
 
-**Call to Action**
-- CTA title
-- Description
-- Button text
+1. **כנס ל-GitHub:**
+   - לך ל: https://github.com/MosheDvora/eyal-advisory
 
-**Contact Information**
-- Contact title and description
-- Office address (2 lines)
-- Phone number
-- Email address
-- Business hours
+2. **מצא את הקובץ:**
+   - לחץ על הקובץ `content.json` ברשימת הקבצים
 
-### Save Changes
-1. After editing, click **Save** in the top right
-2. Click **Publish** to make changes live
-3. Changes will be pushed to GitHub
-4. Netlify will automatically rebuild your site (takes 1-2 minutes)
+3. **ערוך את הקובץ:**
+   - לחץ על אייקון העיפרון (✏️) בצד ימין
+   - או לחץ על "Edit this file"
 
-## Important Notes
+4. **החלף את התוכן:**
+   - מחק את כל התוכן הישן בעורך
+   - פתח את הקובץ `content.json` שהורדת
+   - העתק את כל התוכן (Ctrl+A, Ctrl+C)
+   - הדבק בעורך של GitHub (Ctrl+V)
 
-### Publishing Workflow
-- **Save**: Saves your changes as a draft
-- **Publish**: Makes your changes live on the website
-- Changes go through Git (version controlled)
-- You can always revert to previous versions
+5. **שמור את השינויים:**
+   - גלול למטה
+   - בתיבת "Commit message" כתוב: `עדכון תוכן האתר`
+   - לחץ על "Commit changes"
 
-### Images
-- To upload images, use the image field's "Choose an image" button
-- Supported formats: JPG, PNG, GIF, SVG
-- Images are stored in the `/images` folder
-- Recommended image sizes:
-  - Hero background: 1920x1080px
-  - About image: 800x600px
+6. **המתן לעדכון:**
+   - Netlify יזהה את השינוי אוטומטית
+   - תוך 1-2 דקות האתר יתעדכן עם התוכן החדש!
 
-### Content Guidelines
-- **Titles**: Keep concise (3-8 words)
-- **Descriptions**: Be clear and professional
-- **Services**: Highlight benefits, not just features
-- **Contact Info**: Double-check accuracy
+### דרך 2: דרך GitHub Desktop (לפיתוח מתקדם)
 
-## Troubleshooting
+אם אתה משתמש ב-GitHub Desktop:
+1. פתח את ה-repository המקומי
+2. החלף את הקובץ `content.json`
+3. Commit השינויים
+4. Push ל-remote
 
-### Can't Login?
-- Make sure you've been invited via Netlify Identity
-- Check your spam folder for the invitation email
-- Try resetting your password in Netlify
+## 🔐 שינוי סיסמה
 
-### Changes Not Showing?
-- Wait 2-3 minutes for Netlify to rebuild
-- Clear your browser cache (Ctrl+Shift+R or Cmd+Shift+R)
-- Check Netlify deploy log for errors
+### למה חשוב לשנות את הסיסמה?
+הסיסמה הראשונית `admin123` היא פומבית ועלולה לאפשר גישה לא מורשית. **שנה אותה מיד!**
 
-### Lost Changes?
-- All changes are version controlled in Git
-- Contact your developer to restore previous versions
-- Always save drafts before closing the CMS
+### איך לשנות סיסמה?
 
-## Best Practices
+1. **צור hash לסיסמה החדשה:**
+   - לך ל: https://emn178.github.io/online-tools/sha256.html
+   - הזן את הסיסמה החדשה שלך (למשל: `MyNewPassword2024`)
+   - לחץ "Hash"
+   - העתק את הערך המוצפן (64 תווים)
 
-1. **Preview Before Publishing**: Save as draft and review on the live site
-2. **One Editor at a Time**: Avoid multiple people editing simultaneously
-3. **Backup Important Changes**: Take screenshots before major edits
-4. **Test Links**: Ensure all email/phone links work correctly
-5. **Consistent Tone**: Maintain professional, consistent messaging
+2. **עדכן את הקובץ:**
+   - פתח את הקובץ `/admin/index.html` ב-GitHub או בעורך קוד
+   - מצא שורה 527 (חפש: `ADMIN_PASSWORD_HASH`)
+   - החלף את הערך בין המרכאות ב-hash החדש
+   - עדכן את ההערה (אחרי //) לסיסמה החדשה
 
-## Need Help?
+3. **דוגמה:**
+```javascript
+// לפני:
+const ADMIN_PASSWORD_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'; // admin123
 
-For technical issues or questions:
-- Contact your web developer
-- Visit Decap CMS documentation: https://decapcms.org/docs
-- Check Netlify support: https://answers.netlify.com/
+// אחרי (דוגמה):
+const ADMIN_PASSWORD_HASH = 'abc123def456...'; // MyNewPassword2024
+```
+
+4. **שמור ופרסם:**
+   - Commit את השינוי ב-GitHub
+   - Netlify יעדכן את האתר
+   - מעכשיו תוכל להיכנס רק עם הסיסמה החדשה!
+
+### טיפים לסיסמה בטוחה:
+- ✅ לפחות 10 תווים
+- ✅ שילוב אותיות גדולות וקטנות
+- ✅ מספרים
+- ✅ תווים מיוחדים (@, #, $, !)
+- ❌ אל תשתמש במידע אישי
+- ❌ אל תשתמש במילים מהמילון
+
+**דוגמאות טובות:** `MyCompany@2024`, `Secure#Pass99`, `Eyal$Advisory2024`
+
+## ❓ שאלות נפוצות
+
+**ש: כמה זמן לוקח עד שהשינויים נראים באתר?**
+ת: בדרך כלל 1-2 דקות אחרי ה-commit ב-GitHub. Netlify בונה את האתר מחדש אוטומטית.
+
+**ש: האם אני צריך להתקין משהו?**
+ת: לא! הכל עובד דרך הדפדפן. רק צריך את הסיסמה.
+
+**ש: מה קורה אם שכחתי את הסיסמה?**
+ת: תצטרך גישה ל-GitHub כדי לאפס אותה. פשוט צור hash חדש ועדכן את הקוד.
+
+**ש: האם השינויים מאובטחים?**
+ת: כן! כל השינויים נשמרים ב-GitHub עם היסטוריה מלאה. תמיד אפשר לחזור לגרסה קודמת.
+
+**ש: האם אפשר לעדכן תמונות?**
+ת: כרגע רק טקסט. להחלפת תמונות צור קשר עם המפתח.
+
+**ש: מה אם טעיתי בעריכה?**
+ת: אפשר תמיד לחזור לגרסה קודמת ב-GitHub (History).
+
+## 🆘 צריך עזרה?
+
+**אם נתקעת:**
+1. בדוק שהסיסמה נכונה
+2. נקה את זיכרון המטמון של הדפדפן (Ctrl+Shift+R)
+3. נסה דפדפן אחר
+4. צור קשר עם המפתח
+
+**לבעיות טכניות:**
+- מידע נוסף ב: `admin/PASSWORD_CHANGE.md`
+- תיעוד מלא ב: `README.md`
 
 ---
 
-**Your content is automatically saved to Git, providing full version history and backup.**
+## 📌 תזכורת חשובה
+
+1. 🔒 **שנה את הסיסמה** מ-`admin123` לסיסמה אישית
+2. 💾 **תמיד לחץ "שמור"** לפני הורדת הקובץ
+3. 📤 **העלה ל-GitHub** כדי שהשינויים יופיעו באתר
+4. ⏰ **המתן 1-2 דקות** לאחר commit עד שהאתר מתעדכן
+
+**בהצלחה בניהול האתר! 🎉**
