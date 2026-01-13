@@ -323,18 +323,26 @@
                     </div>
                 </div>
                 <div class="contact__form">
-                    <form id="contactForm">
+                    <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                        <!-- Hidden field for bot detection -->
+                        <input type="hidden" name="form-name" value="contact">
+
+                        <!-- Honeypot field for spam prevention (hidden with CSS) -->
+                        <p style="display: none;">
+                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                        </p>
+
                         <div class="form__group">
-                            <input type="text" id="name" class="form__input" placeholder="Your Name" required>
+                            <input type="text" id="name" name="name" class="form__input" placeholder="Your Name" required>
                         </div>
                         <div class="form__group">
-                            <input type="email" id="email" class="form__input" placeholder="Your Email" required>
+                            <input type="email" id="email" name="email" class="form__input" placeholder="Your Email" required>
                         </div>
                         <div class="form__group">
-                            <input type="tel" id="phone" class="form__input" placeholder="Phone Number">
+                            <input type="tel" id="phone" name="phone" class="form__input" placeholder="Phone Number">
                         </div>
                         <div class="form__group">
-                            <textarea id="message" class="form__input form__textarea" placeholder="Your Message" rows="5" required></textarea>
+                            <textarea id="message" name="message" class="form__input form__textarea" placeholder="Your Message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn btn--primary btn--full">Send Message</button>
                     </form>

@@ -173,19 +173,22 @@ if (contactForm) {
             return;
         }
 
-        // Simulate form submission
-        showNotification('Thank you for your message! We will get back to you soon.', 'success');
+        // Submit to Netlify Forms
+        const formData = new FormData(contactForm);
 
-        // Reset form
-        contactForm.reset();
-
-        // In a real application, you would send the data to a server here
-        // Example:
-        // fetch('/api/contact', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ name, email, phone, message })
-        // });
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+            showNotification('Thank you for your message! We will get back to you soon.', 'success');
+            contactForm.reset();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            showNotification('Sorry, there was an error sending your message. Please try again.', 'error');
+        });
     });
 }
 
