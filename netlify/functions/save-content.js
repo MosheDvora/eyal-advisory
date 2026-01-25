@@ -1,4 +1,5 @@
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+// Using native fetch available in Node.js 18+
+
 
 exports.handler = async (event, context) => {
     // Only allow POST requests
