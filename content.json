@@ -1,11 +1,11 @@
 {
   "company": {
-    "name": "Eyal Advisory",
+    "name": "Eyal Advisory 333",
     "tagline": "Strategic Financial Advisory For Business Success"
   },
   "hero": {
     "title_line1": "Strategic Financial Advisory",
-    "title_line2": "For Eyal Business Success",
+    "title_line2": "For Business Success",
     "description": "Expert CFO services, accounting, tax planning, and transaction advisory to drive your business forward",
     "button_primary": "Get Started",
     "button_secondary": "Learn More",
@@ -91,5 +91,9 @@
     "phone": "+1 (555) 123-4567",
     "email": "contact@eyaladvisory.com",
     "hours": "Monday - Friday: 9:00 AM - 6:00 PM"
+  },
+  "topBar": {
+    "name": "Roey Eyal",
+    "phone": "314-624-2106"
   }
 }
