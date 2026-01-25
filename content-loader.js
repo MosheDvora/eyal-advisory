@@ -221,6 +221,26 @@ function updatePageContent(content) {
         // Update page title
         document.title = `${content.company.name} - Financial & Business Advisory Services`;
     }
+
+    // Update Top Bar
+    if (content.topBar) {
+        const topBarName = document.querySelector('.top-bar__name');
+        if (topBarName && content.topBar.name) {
+            // Preserve icon if exists
+            const icon = topBarName.querySelector('svg');
+            const iconHTML = icon ? icon.outerHTML : '';
+            topBarName.innerHTML = `${iconHTML} ${content.topBar.name}`;
+        }
+
+        const topBarPhone = document.querySelector('.top-bar__phone');
+        if (topBarPhone && content.topBar.phone) {
+            // Preserve icon if exists
+            const icon = topBarPhone.querySelector('svg');
+            const iconHTML = icon ? icon.outerHTML : '';
+            topBarPhone.innerHTML = `${iconHTML} ${content.topBar.phone}`;
+            topBarPhone.href = `tel:${content.topBar.phone.replace(/[^0-9]/g, '')}`;
+        }
+    }
 }
 
 // Load content when page loads

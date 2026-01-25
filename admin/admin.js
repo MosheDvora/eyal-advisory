@@ -78,8 +78,11 @@ const exportBtn = document.getElementById('exportBtn');
 const importFile = document.getElementById('importFile');
 const toast = document.getElementById('toast');
 
+let baseContent = {}; // Store the initial content.json structure
+
 // =============== INITIALIZATION ===============
 document.addEventListener('DOMContentLoaded', () => {
+    loadBaseContent(); // Load existing content.json first
     loadSavedContent();
     loadBackgroundImage();
     loadSavedColors();
@@ -87,6 +90,18 @@ document.addEventListener('DOMContentLoaded', () => {
     setupColorListeners();
     setupNavigation();
 });
+
+// =============== LOAD BASE CONTENT ===============
+async function loadBaseContent() {
+    try {
+        const response = await fetch('../content.json');
+        if (response.ok) {
+            baseContent = await response.json();
+        }
+    } catch (e) {
+        console.error('Error loading base content:', e);
+    }
+}
 
 // =============== LOAD SAVED CONTENT ===============
 function loadSavedContent() {
@@ -243,31 +258,127 @@ function resetColors() {
 }
 
 // =============== SAVE ALL CONTENT ===============
-function saveAllContent() {
-    const content = {};
+async function saveAllContent() {
+    const saveBtn = document.getElementById('saveAll');
+    const originalText = saveBtn.textContent;
+    saveBtn.textContent = '⏳ שומר...';
+    saveBtn.disabled = true;
 
-    // Collect all values from inputs
-    Object.keys(contentFields).forEach(key => {
-        const input = document.getElementById(key);
-        if (input) {
-            content[key] = input.value;
+    try {
+        // 1. Save to LocalStorage (as backup/instant local cache)
+        const localContent = {};
+        Object.keys(contentFields).forEach(key => {
+            const input = document.getElementById(key);
+            if (input) {
+                localContent[key] = input.value;
+            }
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(localContent));
+
+        // Save colors
+        const colors = {
+            primaryColor: document.getElementById('primaryColor')?.value || DEFAULT_COLORS.primaryColor,
+            secondaryColor: document.getElementById('secondaryColor')?.value || DEFAULT_COLORS.secondaryColor,
+            accentColor: document.getElementById('accentColor')?.value || DEFAULT_COLORS.accentColor,
+            heroBgColor1: document.getElementById('heroBgColor1')?.value || DEFAULT_COLORS.heroBgColor1,
+            heroBgColor2: document.getElementById('heroBgColor2')?.value || DEFAULT_COLORS.heroBgColor2
+        };
+        localStorage.setItem(COLORS_KEY, JSON.stringify(colors));
+
+        // 2. Map to content.json structure
+        const gitContent = JSON.parse(JSON.stringify(baseContent)); // Deep copy
+
+        // Company
+        if (!gitContent.company) gitContent.company = {};
+        gitContent.company.name = document.getElementById('companyName').value;
+
+        // Hero
+        if (!gitContent.hero) gitContent.hero = {};
+        gitContent.hero.title_line1 = document.getElementById('heroTitle').value;
+        gitContent.hero.title_line2 = document.getElementById('heroTitleHighlight').value;
+        gitContent.hero.description = document.getElementById('heroDescription').value;
+        gitContent.hero.button_primary = document.getElementById('heroBtnPrimary').value;
+        gitContent.hero.button_secondary = document.getElementById('heroBtnSecondary').value;
+
+        // Stats
+        if (!gitContent.stats) gitContent.stats = {};
+        gitContent.stats.years = parseInt(document.getElementById('stat1Number').value);
+        gitContent.stats.clients = parseInt(document.getElementById('stat2Number').value);
+        gitContent.stats.transactions = parseInt(document.getElementById('stat3Number').value);
+        gitContent.stats.satisfaction = parseInt(document.getElementById('stat4Number').value);
+
+        // About
+        if (!gitContent.about) gitContent.about = {};
+        gitContent.about.subtitle = document.getElementById('aboutSubtitle').value;
+        gitContent.about.title = document.getElementById('aboutTitle').value;
+        gitContent.about.description1 = document.getElementById('aboutDesc1').value;
+        gitContent.about.description2 = document.getElementById('aboutDesc2').value;
+
+        if (!gitContent.about.features) gitContent.about.features = [{}, {}];
+        if (!gitContent.about.features[0]) gitContent.about.features[0] = {};
+        if (!gitContent.about.features[1]) gitContent.about.features[1] = {};
+
+        gitContent.about.features[0].title = document.getElementById('feature1Title').value;
+        gitContent.about.features[0].text = document.getElementById('feature1Text').value;
+        gitContent.about.features[1].title = document.getElementById('feature2Title').value;
+        gitContent.about.features[1].text = document.getElementById('feature2Text').value;
+
+        // Services
+        if (!gitContent.services) gitContent.services = {};
+        gitContent.services.subtitle = document.getElementById('servicesSubtitle').value;
+        gitContent.services.title = document.getElementById('servicesTitle').value;
+
+        if (!gitContent.services.items) gitContent.services.items = [{}, {}, {}, {}];
+
+        const serviceIds = ['service1', 'service2', 'service3', 'service4'];
+        serviceIds.forEach((id, index) => {
+            if (!gitContent.services.items[index]) gitContent.services.items[index] = {};
+            gitContent.services.items[index].title = document.getElementById(id + 'Title').value;
+            gitContent.services.items[index].description = document.getElementById(id + 'Desc').value;
+        });
+
+        // Contact
+        if (!gitContent.contact) gitContent.contact = {};
+        gitContent.contact.title = document.getElementById('contactTitle').value;
+        gitContent.contact.description = document.getElementById('contactDesc').value;
+        gitContent.contact.phone = document.getElementById('contactPhone').value;
+        gitContent.contact.email = document.getElementById('contactEmail').value;
+
+        // Handle Address (split by line)
+        const addressLines = document.getElementById('contactAddress').value.split('\n');
+        gitContent.contact.address_line1 = addressLines[0] || '';
+        gitContent.contact.address_line2 = addressLines[1] || '';
+
+        // Add Top Bar fields (new structure)
+        if (!gitContent.topBar) gitContent.topBar = {};
+        gitContent.topBar.name = document.getElementById('topBarName').value;
+        gitContent.topBar.phone = document.getElementById('topBarPhone').value;
+
+        // 3. Send to Netlify Function
+        const response = await fetch('/.netlify/functions/save-content', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: gitContent
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to save to server');
         }
-    });
 
-    // Save to localStorage
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+        showToast('✅ השינויים נשמרו! האתר מתעדכן (1-2 דקות)...', 'success');
 
-    // Save colors
-    const colors = {
-        primaryColor: document.getElementById('primaryColor')?.value || DEFAULT_COLORS.primaryColor,
-        secondaryColor: document.getElementById('secondaryColor')?.value || DEFAULT_COLORS.secondaryColor,
-        accentColor: document.getElementById('accentColor')?.value || DEFAULT_COLORS.accentColor,
-        heroBgColor1: document.getElementById('heroBgColor1')?.value || DEFAULT_COLORS.heroBgColor1,
-        heroBgColor2: document.getElementById('heroBgColor2')?.value || DEFAULT_COLORS.heroBgColor2
-    };
-    localStorage.setItem(COLORS_KEY, JSON.stringify(colors));
-
-    showToast('✅ השינויים נשמרו בהצלחה!', 'success');
+    } catch (error) {
+        console.error('Save failed:', error);
+        showToast('❌ שגיאה בשמירה: ' + error.message, 'error');
+    } finally {
+        saveBtn.textContent = originalText;
+        saveBtn.disabled = false;
+    }
 }
 
 // =============== HANDLE BACKGROUND UPLOAD ===============
