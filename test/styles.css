@@ -44,12 +44,7 @@ body {
     background-color: var(--bg-color);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     line-height: 1.2;
     font-weight: 600;
@@ -143,69 +138,10 @@ ul {
     width: 100%;
 }
 
-/* =============== TOP BAR =============== */
-.top-bar {
-    background-color: #0f1824;
-    padding: 8px 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1001;
-    border-bottom: 1px solid rgba(201, 169, 110, 0.2);
-}
-
-.top-bar__container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.top-bar__info {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.top-bar__name,
-.top-bar__phone {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.top-bar__name svg,
-.top-bar__phone svg {
-    width: 16px;
-    height: 16px;
-    color: var(--secondary-color);
-}
-
-.top-bar__phone {
-    padding: 6px 16px;
-    background: linear-gradient(135deg, var(--secondary-color), #d4b77a);
-    color: #fff;
-    border-radius: 4px;
-    transition: var(--transition);
-}
-
-.top-bar__phone:hover {
-    background: linear-gradient(135deg, #d4b77a, var(--secondary-color));
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(201, 169, 110, 0.4);
-}
-
-.top-bar__phone svg {
-    color: #fff;
-}
-
 /* =============== HEADER / NAVIGATION =============== */
 .header {
     position: fixed;
-    top: 36px;
+    top: 0;
     left: 0;
     width: 100%;
     background-color: rgba(26, 40, 73, 0.95);
@@ -275,68 +211,36 @@ ul {
 .hero {
     position: relative;
     min-height: 100vh;
-    min-height: -webkit-fill-available;
-    /* iOS Safari fix */
-    min-height: 100dvh;
-    /* Modern browsers - dynamic viewport height */
-    padding-top: 116px;
-    /* 80px header + 36px top bar */
-    /* Account for fixed header */
+    min-height: -webkit-fill-available; /* iOS Safari fix */
+    min-height: 100dvh; /* Modern browsers - dynamic viewport height */
+    padding-top: 80px; /* Account for fixed header */
     display: flex;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
     overflow: hidden;
-    /* Fallback gradient when no background image */
-    background: var(--hero-bg-gradient, linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%));
 }
 
-/* Background image layer with blur */
-.hero__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.hero__bg-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    /* No blur - clear image */
-    transform: scale(1.0);
-}
-
-/* Lighter overlay for better image visibility */
-.hero__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg,
-            rgba(26, 40, 73, 0.45) 0%,
-            rgba(44, 62, 95, 0.35) 50%,
-            rgba(26, 40, 73, 0.45) 100%);
-    z-index: 2;
-}
-
-/* Subtle accent overlay */
-.hero__overlay::before {
+.hero::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 30% 40%,
-            rgba(201, 169, 110, 0.15) 0%,
-            transparent 60%),
-        radial-gradient(circle at 70% 70%,
-            rgba(201, 169, 110, 0.1) 0%,
-            transparent 50%);
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(201,169,110,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+    background-size: cover;
+    opacity: 0.5;
+}
+
+.hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(201, 169, 110, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(201, 169, 110, 0.1) 0%, transparent 50%);
 }
 
 .hero__content {
@@ -351,27 +255,21 @@ ul {
     font-size: 64px;
     margin-bottom: 25px;
     font-weight: 700;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
-        0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero__title .highlight {
     color: var(--secondary-color);
     display: inline-block;
     animation: fadeIn 1.5s ease 0.3s both;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6),
-        0 2px 10px rgba(201, 169, 110, 0.4);
 }
 
 .hero__description {
     font-size: 20px;
     max-width: 700px;
     margin: 0 auto 40px;
-    color: rgba(255, 255, 255, 0.95);
-    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
     animation: fadeIn 1.5s ease 0.5s both;
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5),
-        0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
 .hero__buttons {
@@ -857,7 +755,6 @@ ul {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -868,7 +765,6 @@ ul {
         opacity: 0;
         transform: translateY(30px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -876,12 +772,9 @@ ul {
 }
 
 @keyframes float {
-
-    0%,
-    100% {
+    0%, 100% {
         transform: translateX(-50%) translateY(0);
     }
-
     50% {
         transform: translateX(-50%) translateY(-10px);
     }
@@ -927,7 +820,6 @@ ul {
 }
 
 @media screen and (max-width: 768px) {
-
     /* Navigation */
     .nav__menu {
         position: fixed;
@@ -981,18 +873,11 @@ ul {
         cursor: pointer;
     }
 
-    /* Top Bar Mobile */
-    .top-bar__info {
-        gap: 15px;
-        justify-content: center;
-    }
-
     /* Hero */
     .hero {
         min-height: 100vh;
         min-height: -webkit-fill-available;
-        padding-top: 130px;
-        /* More space for mobile */
+        padding-top: 100px; /* Extra space on mobile for better appearance */
     }
 
     .hero__title {

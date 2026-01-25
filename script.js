@@ -181,14 +181,18 @@ if (contactForm) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(formData).toString()
         })
-        .then(() => {
-            showNotification('Thank you for your message! We will get back to you soon.', 'success');
-            contactForm.reset();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            showNotification('Sorry, there was an error sending your message. Please try again.', 'error');
-        });
+            .then(response => {
+                if (response.ok) {
+                    showNotification('Thank you for your message! We will get back to you soon.', 'success');
+                    contactForm.reset();
+                } else {
+                    showNotification('There was an error sending your message. Please try again.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Form submission error:', error);
+                showNotification('There was an error sending your message. Please try again.', 'error');
+            });
     });
 }
 
@@ -364,8 +368,182 @@ keyboardStyle.textContent = `
 `;
 document.head.appendChild(keyboardStyle);
 
+// =============== LOAD SAVED CONTENT FROM ADMIN ===============
+const STORAGE_KEY = 'eyalAdvisoryContent';
+const BG_IMAGE_KEY = 'eyalAdvisoryBgImage';
+const COLORS_KEY = 'eyalAdvisoryColors';
+
+const contentMapping = {
+    companyName: ['.nav__logo h2', '.footer__logo'],
+    heroTitleHighlight: ['.hero__title .highlight'],
+    heroDescription: ['.hero__description'],
+    heroBtnPrimary: ['.hero__buttons .btn--primary'],
+    heroBtnSecondary: ['.hero__buttons .btn--secondary'],
+    stat1Label: ['.stat__item:nth-child(1) .stat__label'],
+    stat2Label: ['.stat__item:nth-child(2) .stat__label'],
+    stat3Label: ['.stat__item:nth-child(3) .stat__label'],
+    stat4Label: ['.stat__item:nth-child(4) .stat__label'],
+    aboutSubtitle: ['.about .section__subtitle'],
+    aboutTitle: ['.about .section__title'],
+    feature1Title: ['.feature:nth-child(1) .feature__title'],
+    feature1Text: ['.feature:nth-child(1) .feature__text'],
+    feature2Title: ['.feature:nth-child(2) .feature__title'],
+    feature2Text: ['.feature:nth-child(2) .feature__text'],
+    servicesSubtitle: ['.services .section__subtitle'],
+    servicesTitle: ['.services .section__title'],
+    service1Title: ['.service__card:nth-child(1) .service__title'],
+    service1Desc: ['.service__card:nth-child(1) .service__description'],
+    service2Title: ['.service__card:nth-child(2) .service__title'],
+    service2Desc: ['.service__card:nth-child(2) .service__description'],
+    service3Title: ['.service__card:nth-child(3) .service__title'],
+    service3Desc: ['.service__card:nth-child(3) .service__description'],
+    service4Title: ['.service__card:nth-child(4) .service__title'],
+    service4Desc: ['.service__card:nth-child(4) .service__description'],
+    contactTitle: ['.contact .section__title'],
+    contactDesc: ['.contact__description'],
+    contactPhone: ['.contact__item:nth-child(2) p'],
+    contactEmail: ['.contact__item:nth-child(3) p'],
+    topBarName: ['.top-bar__name'],
+    topBarPhone: ['.top-bar__phone']
+};
+
+function loadSavedContent() {
+    const savedContent = localStorage.getItem(STORAGE_KEY);
+    if (!savedContent) return;
+
+    try {
+        const content = JSON.parse(savedContent);
+
+        // Apply text content
+        Object.keys(contentMapping).forEach(key => {
+            if (content[key]) {
+                contentMapping[key].forEach(selector => {
+                    const elements = document.querySelectorAll(selector);
+                    elements.forEach(el => {
+                        el.textContent = content[key];
+                    });
+                });
+            }
+        });
+
+        // Special handling for hero title (first line)
+        if (content.heroTitle) {
+            const heroTitle = document.querySelector('.hero__title');
+            if (heroTitle) {
+                const highlight = heroTitle.querySelector('.highlight');
+                const highlightText = highlight ? highlight.textContent : '';
+                heroTitle.innerHTML = content.heroTitle + ' <br><span class="highlight">' + highlightText + '</span>';
+            }
+        }
+
+        // Special handling for about descriptions
+        if (content.aboutDesc1) {
+            const aboutDescs = document.querySelectorAll('.about__description');
+            if (aboutDescs[0]) aboutDescs[0].textContent = content.aboutDesc1;
+        }
+        if (content.aboutDesc2) {
+            const aboutDescs = document.querySelectorAll('.about__description');
+            if (aboutDescs[1]) aboutDescs[1].textContent = content.aboutDesc2;
+        }
+
+        // Special handling for contact address (with HTML)
+        if (content.contactAddress) {
+            const addressEl = document.querySelector('.contact__item:nth-child(1) p');
+            if (addressEl) {
+                addressEl.innerHTML = content.contactAddress.replace(/\n/g, '<br>');
+            }
+        }
+
+        // Update stat numbers (data-target attribute)
+        ['stat1Number', 'stat2Number', 'stat3Number', 'stat4Number'].forEach((key, index) => {
+            if (content[key]) {
+                const statEl = document.querySelector(`.stat__item:nth-child(${index + 1}) .stat__number`);
+                if (statEl) {
+                    statEl.setAttribute('data-target', content[key]);
+                    statEl.textContent = '0'; // Reset for animation
+                }
+            }
+        });
+
+        // Special handling for Top Bar to preserve icons
+        if (content.topBarName) {
+            const el = document.querySelector('.top-bar__name');
+            if (el) {
+                // Keep the SVG icon
+                const icon = el.querySelector('svg');
+                const iconHTML = icon ? icon.outerHTML : '';
+                el.innerHTML = iconHTML + ' ' + content.topBarName;
+            }
+        }
+        if (content.topBarPhone) {
+            const el = document.querySelector('.top-bar__phone');
+            if (el) {
+                // Keep the SVG icon
+                const icon = el.querySelector('svg');
+                const iconHTML = icon ? icon.outerHTML : '';
+                el.innerHTML = iconHTML + ' ' + content.topBarPhone;
+                el.href = 'tel:' + content.topBarPhone.replace(/[^0-9]/g, '');
+            }
+        }
+
+        console.log('Content loaded from admin panel');
+    } catch (e) {
+        console.error('Error loading saved content:', e);
+    }
+}
+
+function loadBackgroundImage() {
+    const savedBgImage = localStorage.getItem(BG_IMAGE_KEY);
+    if (!savedBgImage) return;
+
+    const bgImage = document.querySelector('.hero__bg-image');
+    if (!bgImage) return;
+
+    if (savedBgImage === 'none') {
+        bgImage.style.display = 'none';
+    } else {
+        bgImage.src = savedBgImage;
+    }
+}
+
+// =============== LOAD SAVED COLORS ===============
+function loadColors() {
+    const savedColors = localStorage.getItem(COLORS_KEY);
+    if (!savedColors) return;
+
+    try {
+        const colors = JSON.parse(savedColors);
+        const root = document.documentElement;
+
+        if (colors.primaryColor) {
+            root.style.setProperty('--primary-color', colors.primaryColor);
+        }
+        if (colors.secondaryColor) {
+            root.style.setProperty('--secondary-color', colors.secondaryColor);
+        }
+        if (colors.accentColor) {
+            root.style.setProperty('--accent-color', colors.accentColor);
+        }
+
+        // Apply hero background gradient
+        if (colors.heroBgColor1 && colors.heroBgColor2) {
+            root.style.setProperty('--hero-bg-gradient',
+                `linear-gradient(135deg, ${colors.heroBgColor1} 0%, ${colors.heroBgColor2} 100%)`);
+        }
+
+        console.log('Colors loaded from admin panel');
+    } catch (e) {
+        console.error('Error loading saved colors:', e);
+    }
+}
+
 // =============== INITIALIZE ON LOAD ===============
 window.addEventListener('load', () => {
+    // Load saved content from admin
+    loadSavedContent();
+    loadBackgroundImage();
+    loadColors();
+
     // Initial scroll check
     scrollHeader();
     scrollActive();

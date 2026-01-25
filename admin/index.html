@@ -1,719 +1,392 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
-    <title>ניהול תוכן האתר</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-        }
-
-        /* Login Screen */
-        #login-container {
-            background: linear-gradient(135deg, #1a2849 0%, #2c3e5f 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .login-box {
-            background: white;
-            padding: 50px 40px;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .login-box h1 {
-            color: #1a2849;
-            font-size: 28px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .login-box p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: right;
-        }
-
-        .input-group label {
-            display: block;
-            color: #333;
-            font-weight: 500;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .input-group input,
-        .input-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .input-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .input-group input:focus,
-        .input-group textarea:focus {
-            outline: none;
-            border-color: #c9a96e;
-            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
-        }
-
-        .btn {
-            padding: 14px 20px;
-            background: #c9a96e;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .btn:hover {
-            background: #b89555;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(201, 169, 110, 0.3);
-        }
-
-        .btn-full {
-            width: 100%;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        .btn-success {
-            background: #28a745;
-        }
-
-        .btn-success:hover {
-            background: #218838;
-        }
-
-        .error-message {
-            background: #fee;
-            color: #c33;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-            animation: shake 0.5s;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .password-info {
-            background: #f0f8ff;
-            border-right: 4px solid #1a2849;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            text-align: right;
-            font-size: 13px;
-            color: #1a2849;
-        }
-
-        .password-info strong {
-            display: block;
-            margin-bottom: 5px;
-            color: #c9a96e;
-        }
-
-        /* CMS Interface */
-        #cms-container {
-            display: none;
-        }
-
-        #cms-container.show {
-            display: block;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1a2849 0%, #2c3e5f 100%);
-            color: white;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            font-size: 24px;
-        }
-
-        .logout-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: #c82333;
-        }
-
-        .cms-content {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .section-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .section-card h2 {
-            color: #1a2849;
-            font-size: 22px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #c9a96e;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .info-box {
-            background: #fff3cd;
-            border-right: 4px solid #ffc107;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            color: #856404;
-        }
-
-        .info-box strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .field-group {
-            margin-bottom: 20px;
-        }
-
-        .list-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            border-right: 3px solid #c9a96e;
-        }
-
-        .list-item h4 {
-            color: #1a2849;
-            margin-bottom: 10px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Eyal Advisory</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Login Screen -->
-    <div id="login-container">
-        <div class="login-box">
-            <h1>ניהול תוכן האתר</h1>
-            <p>הזן סיסמה כדי לגשת לממשק הניהול</p>
-
-            <div class="password-info">
-                <strong>💡 הסיסמה הראשונית:</strong>
-                admin123
-            </div>
-
-            <div class="error-message" id="error-message">
-                סיסמה שגויה. נסה שוב.
-            </div>
-
-            <form id="login-form">
-                <div class="input-group">
-                    <label for="password">סיסמה</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="הזן סיסמה"
-                        required
-                        autocomplete="current-password"
-                    />
-                </div>
-                <button type="submit" class="btn btn-full">כניסה</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- CMS Interface -->
-    <div id="cms-container">
-        <div class="header">
-            <div class="header-content">
-                <h1>ניהול תוכן האתר - Eyal Advisory</h1>
-                <button class="logout-btn" id="logout-btn">התנתק</button>
+    <header class="admin-header">
+        <div class="container">
+            <h1>פאנל ניהול - Eyal Advisory</h1>
+            <div class="header-actions">
+                <button id="saveAll" class="btn btn-primary">💾 שמור הכל</button>
+                <a href="../index.html" class="btn btn-secondary" target="_blank">👁️ צפה באתר</a>
             </div>
         </div>
+    </header>
 
-        <div class="cms-content">
-            <div class="success-message" id="success-message">
-                השינויים נשמרו בהצלחה! לחץ על "הורד קובץ" והעלה אותו ל-GitHub.
-            </div>
+    <main class="admin-main">
+        <div class="container">
+            <div class="admin-grid">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <nav class="admin-nav">
+                        <a href="#background-section" class="nav-link active">🖼️ תמונת רקע</a>
+                        <a href="#branding-section" class="nav-link">✨ מיתוג</a>
+                        <a href="#colors-section" class="nav-link">🎨 צבעים</a>
+                        <a href="#hero-section" class="nav-link">🏠 Hero</a>
+                        <a href="#stats-section" class="nav-link">📊 סטטיסטיקות</a>
+                        <a href="#about-section" class="nav-link">ℹ️ אודות</a>
+                        <a href="#services-section" class="nav-link">🛠️ שירותים</a>
+                        <a href="#contact-section" class="nav-link">📞 יצירת קשר</a>
+                        <a href="#export-section" class="nav-link">📤 ייצוא/ייבוא</a>
+                    </nav>
+                </aside>
 
-            <div class="info-box">
-                <strong>📝 הוראות שימוש:</strong>
-                1. ערוך את השדות למטה<br>
-                2. לחץ "שמור שינויים"<br>
-                3. לחץ "הורד קובץ" כדי להוריד את content.json<br>
-                4. העלה את הקובץ ל-GitHub (ראה הוראות מפורטות למטה)
-            </div>
+                <!-- Main Content -->
+                <div class="admin-content">
+                    <!-- Background Image Section -->
+                    <section id="background-section" class="admin-section">
+                        <h2>🖼️ תמונת רקע</h2>
+                        <div class="form-group">
+                            <label>תמונת רקע נוכחית:</label>
+                            <div class="image-preview" id="bgPreview">
+                                <img src="../Gemini-v1.png" alt="תמונת רקע" id="bgPreviewImg">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bgUpload">העלאת תמונה חדשה:</label>
+                            <input type="file" id="bgUpload" accept="image/*" class="file-input">
+                            <p class="help-text">מומלץ: תמונה ברזולוציה גבוהה (1920x1080 לפחות)</p>
+                        </div>
+                        <div class="button-group">
+                            <button id="removeBg" class="btn btn-danger">🗑️ הסר תמונת רקע</button>
+                            <button id="resetBg" class="btn btn-secondary">↩️ החזר לברירת מחדל</button>
+                        </div>
+                    </section>
 
-            <form id="cms-form">
-                <!-- Hero Section -->
-                <div class="section-card">
-                    <h2>🎯 מסך ראשי (Hero)</h2>
-                    <div class="input-group">
-                        <label>כותרת ראשית - שורה 1</label>
-                        <input type="text" id="hero_title_line1" />
-                    </div>
-                    <div class="input-group">
-                        <label>כותרת ראשית - שורה 2 (מודגשת)</label>
-                        <input type="text" id="hero_title_line2" />
-                    </div>
-                    <div class="input-group">
-                        <label>תיאור</label>
-                        <textarea id="hero_description"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label>טקסט כפתור ראשי</label>
-                        <input type="text" id="hero_button_primary" />
-                    </div>
-                    <div class="input-group">
-                        <label>טקסט כפתור משני</label>
-                        <input type="text" id="hero_button_secondary" />
-                    </div>
+                    <!-- Branding Section -->
+                    <section id="branding-section" class="admin-section">
+                        <h2>✨ מיתוג</h2>
+                        <div class="form-group">
+                            <label for="companyName">שם החברה:</label>
+                            <input type="text" id="companyName" class="form-input" value="Eyal Advisory">
+                        </div>
+                    </section>
+
+                    <!-- Colors Section -->
+                    <section id="colors-section" class="admin-section">
+                        <h2>🎨 צבעים</h2>
+                        <p class="help-text">שנה את הצבעים הראשיים של האתר. הצבע הראשי משמש לheader, footer וכפתורים.
+                        </p>
+
+                        <div class="colors-grid">
+                            <div class="color-picker-group">
+                                <label for="primaryColor">צבע ראשי (כחול כהה):</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="primaryColor" class="color-input" value="#1a2849">
+                                    <input type="text" id="primaryColorText" class="form-input color-text"
+                                        value="#1a2849">
+                                </div>
+                                <p class="help-text">Header, Footer, כותרות</p>
+                            </div>
+
+                            <div class="color-picker-group">
+                                <label for="secondaryColor">צבע משני (זהב):</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="secondaryColor" class="color-input" value="#c9a96e">
+                                    <input type="text" id="secondaryColorText" class="form-input color-text"
+                                        value="#c9a96e">
+                                </div>
+                                <p class="help-text">כפתורים, הדגשות, קישורים</p>
+                            </div>
+
+                            <div class="color-picker-group">
+                                <label for="accentColor">צבע הדגשה:</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="accentColor" class="color-input" value="#2c3e5f">
+                                    <input type="text" id="accentColorText" class="form-input color-text"
+                                        value="#2c3e5f">
+                                </div>
+                                <p class="help-text">רקעים משניים, גרדיאנטים</p>
+                            </div>
+                        </div>
+
+                        <h3>🖼️ רקע Hero (כאשר אין תמונה)</h3>
+                        <p class="help-text">בחר את הצבעים לגרדיאנט הרקע שיופיע כאשר אין תמונת רקע.</p>
+
+                        <div class="colors-grid" style="margin-top: 15px;">
+                            <div class="color-picker-group">
+                                <label for="heroBgColor1">צבע רקע Hero 1:</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="heroBgColor1" class="color-input" value="#1a2849">
+                                    <input type="text" id="heroBgColor1Text" class="form-input color-text"
+                                        value="#1a2849">
+                                </div>
+                                <p class="help-text">תחילת הגרדיאנט (שמאל למעלה)</p>
+                            </div>
+
+                            <div class="color-picker-group">
+                                <label for="heroBgColor2">צבע רקע Hero 2:</label>
+                                <div class="color-input-wrapper">
+                                    <input type="color" id="heroBgColor2" class="color-input" value="#2c3e5f">
+                                    <input type="text" id="heroBgColor2Text" class="form-input color-text"
+                                        value="#2c3e5f">
+                                </div>
+                                <p class="help-text">סוף הגרדיאנט (ימין למטה)</p>
+                            </div>
+                        </div>
+
+                        <div class="color-preview">
+                            <h4>תצוגה מקדימה:</h4>
+                            <div class="preview-box" id="colorPreviewBox">
+                                <div class="preview-header" id="previewHeader">Header לדוגמה</div>
+                                <div class="preview-button" id="previewButton">כפתור לדוגמה</div>
+                            </div>
+                            <div class="preview-hero-bg" id="previewHeroBg"
+                                style="margin-top: 15px; height: 80px; border-radius: 8px; background: linear-gradient(135deg, #1a2849 0%, #2c3e5f 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 500;">
+                                רקע Hero לדוגמה
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="resetColors" class="btn btn-secondary">↩️ החזר צבעים לברירת מחדל</button>
+                        </div>
+                    </section>
+
+                    <!-- Hero Section -->
+                    <section id="hero-section" class="admin-section">
+                        <h2>🏠 Hero Section</h2>
+                        <div class="form-group">
+                            <label for="heroTitle">כותרת ראשית (שורה 1):</label>
+                            <input type="text" id="heroTitle" class="form-input" value="Strategic Financial Advisory">
+                        </div>
+                        <div class="form-group">
+                            <label for="heroTitleHighlight">כותרת ראשית (שורה 2 - מודגשת):</label>
+                            <input type="text" id="heroTitleHighlight" class="form-input" value="For Business Success">
+                        </div>
+                        <div class="form-group">
+                            <label for="heroDescription">תיאור:</label>
+                            <textarea id="heroDescription" class="form-textarea"
+                                rows="3">Expert CFO services, accounting, tax planning, and transaction advisory to drive your business forward</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="heroBtnPrimary">טקסט כפתור ראשי:</label>
+                            <input type="text" id="heroBtnPrimary" class="form-input" value="Get Started">
+                        </div>
+                        <div class="form-group">
+                            <label for="heroBtnSecondary">טקסט כפתור משני:</label>
+                            <input type="text" id="heroBtnSecondary" class="form-input" value="Learn More">
+                        </div>
+                    </section>
+
+                    <!-- Stats Section -->
+                    <section id="stats-section" class="admin-section">
+                        <h2>📊 סטטיסטיקות</h2>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="form-group">
+                                    <label for="stat1Number">מספר 1:</label>
+                                    <input type="number" id="stat1Number" class="form-input" value="20">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stat1Label">תווית 1:</label>
+                                    <input type="text" id="stat1Label" class="form-input" value="Years Experience">
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="form-group">
+                                    <label for="stat2Number">מספר 2:</label>
+                                    <input type="number" id="stat2Number" class="form-input" value="150">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stat2Label">תווית 2:</label>
+                                    <input type="text" id="stat2Label" class="form-input" value="Clients Served">
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="form-group">
+                                    <label for="stat3Number">מספר 3:</label>
+                                    <input type="number" id="stat3Number" class="form-input" value="500">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stat3Label">תווית 3:</label>
+                                    <input type="text" id="stat3Label" class="form-input"
+                                        value="Transactions Completed">
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="form-group">
+                                    <label for="stat4Number">מספר 4:</label>
+                                    <input type="number" id="stat4Number" class="form-input" value="100">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stat4Label">תווית 4:</label>
+                                    <input type="text" id="stat4Label" class="form-input" value="Client Satisfaction %">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- About Section -->
+                    <section id="about-section" class="admin-section">
+                        <h2>ℹ️ אודות</h2>
+                        <div class="form-group">
+                            <label for="aboutSubtitle">כותרת משנית:</label>
+                            <input type="text" id="aboutSubtitle" class="form-input" value="About Us">
+                        </div>
+                        <div class="form-group">
+                            <label for="aboutTitle">כותרת:</label>
+                            <input type="text" id="aboutTitle" class="form-input"
+                                value="Excellence in Financial Advisory">
+                        </div>
+                        <div class="form-group">
+                            <label for="aboutDesc1">פסקה 1:</label>
+                            <textarea id="aboutDesc1" class="form-textarea"
+                                rows="4">Eyal Advisory is a trusted financial and business advisory firm providing comprehensive CFO services, accounting solutions, tax planning, and transaction advisory. With deep industry expertise and a commitment to excellence, we help businesses navigate complex financial challenges and achieve sustainable growth.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="aboutDesc2">פסקה 2:</label>
+                            <textarea id="aboutDesc2" class="form-textarea"
+                                rows="4">Our team of experienced professionals delivers strategic insights and practical solutions tailored to your unique business needs, ensuring financial clarity and operational efficiency at every stage of your journey.</textarea>
+                        </div>
+                        <h3>תכונות</h3>
+                        <div class="form-group">
+                            <label for="feature1Title">תכונה 1 - כותרת:</label>
+                            <input type="text" id="feature1Title" class="form-input" value="Proven Track Record">
+                        </div>
+                        <div class="form-group">
+                            <label for="feature1Text">תכונה 1 - טקסט:</label>
+                            <input type="text" id="feature1Text" class="form-input"
+                                value="Consistent performance across market cycles">
+                        </div>
+                        <div class="form-group">
+                            <label for="feature2Title">תכונה 2 - כותרת:</label>
+                            <input type="text" id="feature2Title" class="form-input" value="Client-Focused">
+                        </div>
+                        <div class="form-group">
+                            <label for="feature2Text">תכונה 2 - טקסט:</label>
+                            <input type="text" id="feature2Text" class="form-input"
+                                value="Personalized strategies aligned with your goals">
+                        </div>
+                    </section>
+
+                    <!-- Services Section -->
+                    <section id="services-section" class="admin-section">
+                        <h2>🛠️ שירותים</h2>
+                        <div class="form-group">
+                            <label for="servicesSubtitle">כותרת משנית:</label>
+                            <input type="text" id="servicesSubtitle" class="form-input" value="Our Services">
+                        </div>
+                        <div class="form-group">
+                            <label for="servicesTitle">כותרת:</label>
+                            <input type="text" id="servicesTitle" class="form-input"
+                                value="Comprehensive Business Advisory Services">
+                        </div>
+
+                        <div class="service-editor">
+                            <h3>שירות 1 - Outsourced CFO</h3>
+                            <div class="form-group">
+                                <label for="service1Title">כותרת:</label>
+                                <input type="text" id="service1Title" class="form-input" value="Outsourced CFO">
+                            </div>
+                            <div class="form-group">
+                                <label for="service1Desc">תיאור:</label>
+                                <textarea id="service1Desc" class="form-textarea"
+                                    rows="3">Strategic financial leadership without the cost of a full-time executive. We provide expert CFO services including financial planning, forecasting, cash flow management, and strategic decision support to drive your business growth.</textarea>
+                            </div>
+                        </div>
+
+                        <div class="service-editor">
+                            <h3>שירות 2 - Accounting</h3>
+                            <div class="form-group">
+                                <label for="service2Title">כותרת:</label>
+                                <input type="text" id="service2Title" class="form-input" value="Accounting">
+                            </div>
+                            <div class="form-group">
+                                <label for="service2Desc">תיאור:</label>
+                                <textarea id="service2Desc" class="form-textarea"
+                                    rows="3">Comprehensive accounting services including bookkeeping, financial statement preparation, month-end close, accounts payable/receivable, and financial reporting to ensure accurate and timely financial information for decision-making.</textarea>
+                            </div>
+                        </div>
+
+                        <div class="service-editor">
+                            <h3>שירות 3 - Taxes</h3>
+                            <div class="form-group">
+                                <label for="service3Title">כותרת:</label>
+                                <input type="text" id="service3Title" class="form-input" value="Taxes">
+                            </div>
+                            <div class="form-group">
+                                <label for="service3Desc">תיאור:</label>
+                                <textarea id="service3Desc" class="form-textarea"
+                                    rows="3">Proactive tax planning and compliance services to minimize tax liability while ensuring full regulatory compliance. Including tax strategy, preparation, filing, and representation for businesses and individuals.</textarea>
+                            </div>
+                        </div>
+
+                        <div class="service-editor">
+                            <h3>שירות 4 - Transaction Services</h3>
+                            <div class="form-group">
+                                <label for="service4Title">כותרת:</label>
+                                <input type="text" id="service4Title" class="form-input" value="Transaction Services">
+                            </div>
+                            <div class="form-group">
+                                <label for="service4Desc">תיאור:</label>
+                                <textarea id="service4Desc" class="form-textarea"
+                                    rows="3">Expert guidance through mergers, acquisitions, and strategic transactions. We provide due diligence, valuation, deal structuring, and post-transaction integration support to maximize value and minimize risk.</textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Section -->
+                    <section id="contact-section" class="admin-section">
+                        <h2>📞 יצירת קשר</h2>
+                        <div class="form-group">
+                            <label for="contactTitle">כותרת:</label>
+                            <input type="text" id="contactTitle" class="form-input" value="Get In Touch">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactDesc">תיאור:</label>
+                            <textarea id="contactDesc" class="form-textarea"
+                                rows="2">Discover how Eyal Advisory can help you achieve your business goals. Contact us today to schedule a confidential consultation.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactAddress">כתובת:</label>
+                            <textarea id="contactAddress" class="form-textarea" rows="2">123 Financial District
+New York, NY 10005</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">טלפון:</label>
+                            <input type="text" id="contactPhone" class="form-input" value="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">אימייל:</label>
+                            <input type="email" id="contactEmail" class="form-input" value="contact@eyaladvisory.com">
+                        </div>
+
+                        <h3>פרטי סרגל עליון</h3>
+                        <div class="form-group">
+                            <label for="topBarName">שם בסרגל עליון:</label>
+                            <input type="text" id="topBarName" class="form-input" value="Roey Eyal">
+                        </div>
+                        <div class="form-group">
+                            <label for="topBarPhone">טלפון בסרגל עליון:</label>
+                            <input type="text" id="topBarPhone" class="form-input" value="314-624-2106">
+                        </div>
+                    </section>
+
+                    <!-- Export/Import Section -->
+                    <section id="export-section" class="admin-section">
+                        <h2>📤 ייצוא/ייבוא</h2>
+                        <p class="help-text">ייצא את כל ההגדרות לקובץ JSON או ייבא הגדרות קיימות.</p>
+                        <div class="button-group">
+                            <button id="exportBtn" class="btn btn-primary">📤 ייצא הגדרות</button>
+                            <label for="importFile" class="btn btn-secondary">📥 ייבא הגדרות</label>
+                            <input type="file" id="importFile" accept=".json" style="display:none;">
+                        </div>
+                    </section>
                 </div>
-
-                <!-- Stats Section -->
-                <div class="section-card">
-                    <h2>📊 סטטיסטיקות</h2>
-                    <div class="input-group">
-                        <label>שנות ניסיון</label>
-                        <input type="number" id="stats_years" />
-                    </div>
-                    <div class="input-group">
-                        <label>מספר לקוחות</label>
-                        <input type="number" id="stats_clients" />
-                    </div>
-                    <div class="input-group">
-                        <label>עסקאות שהושלמו</label>
-                        <input type="number" id="stats_transactions" />
-                    </div>
-                    <div class="input-group">
-                        <label>אחוז שביעות רצון</label>
-                        <input type="number" id="stats_satisfaction" />
-                    </div>
-                </div>
-
-                <!-- About Section -->
-                <div class="section-card">
-                    <h2>ℹ️ אודות</h2>
-                    <div class="input-group">
-                        <label>כותרת משנה</label>
-                        <input type="text" id="about_subtitle" />
-                    </div>
-                    <div class="input-group">
-                        <label>כותרת ראשית</label>
-                        <input type="text" id="about_title" />
-                    </div>
-                    <div class="input-group">
-                        <label>תיאור - פסקה 1</label>
-                        <textarea id="about_description1"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label>תיאור - פסקה 2</label>
-                        <textarea id="about_description2"></textarea>
-                    </div>
-                </div>
-
-                <!-- Services Section -->
-                <div class="section-card">
-                    <h2>💼 שירותים</h2>
-                    <div class="input-group">
-                        <label>כותרת משנה</label>
-                        <input type="text" id="services_subtitle" />
-                    </div>
-                    <div class="input-group">
-                        <label>כותרת ראשית</label>
-                        <input type="text" id="services_title" />
-                    </div>
-
-                    <div class="list-item">
-                        <h4>שירות 1</h4>
-                        <div class="input-group">
-                            <label>כותרת</label>
-                            <input type="text" id="service1_title" />
-                        </div>
-                        <div class="input-group">
-                            <label>תיאור</label>
-                            <textarea id="service1_description"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="list-item">
-                        <h4>שירות 2</h4>
-                        <div class="input-group">
-                            <label>כותרת</label>
-                            <input type="text" id="service2_title" />
-                        </div>
-                        <div class="input-group">
-                            <label>תיאור</label>
-                            <textarea id="service2_description"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="list-item">
-                        <h4>שירות 3</h4>
-                        <div class="input-group">
-                            <label>כותרת</label>
-                            <input type="text" id="service3_title" />
-                        </div>
-                        <div class="input-group">
-                            <label>תיאור</label>
-                            <textarea id="service3_description"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="list-item">
-                        <h4>שירות 4</h4>
-                        <div class="input-group">
-                            <label>כותרת</label>
-                            <input type="text" id="service4_title" />
-                        </div>
-                        <div class="input-group">
-                            <label>תיאור</label>
-                            <textarea id="service4_description"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Section -->
-                <div class="section-card">
-                    <h2>📞 יצירת קשר</h2>
-                    <div class="input-group">
-                        <label>כותרת</label>
-                        <input type="text" id="contact_title" />
-                    </div>
-                    <div class="input-group">
-                        <label>תיאור</label>
-                        <textarea id="contact_description"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label>כתובת - שורה 1</label>
-                        <input type="text" id="contact_address_line1" />
-                    </div>
-                    <div class="input-group">
-                        <label>כתובת - שורה 2</label>
-                        <input type="text" id="contact_address_line2" />
-                    </div>
-                    <div class="input-group">
-                        <label>טלפון</label>
-                        <input type="text" id="contact_phone" />
-                    </div>
-                    <div class="input-group">
-                        <label>אימייל</label>
-                        <input type="email" id="contact_email" />
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" class="btn btn-success btn-full">שמור שינויים</button>
-                </div>
-            </form>
-
-            <div class="button-group">
-                <button type="button" id="download-btn" class="btn btn-full" disabled>הורד קובץ (לאחר שמירה)</button>
-            </div>
-
-            <!-- Instructions -->
-            <div class="section-card">
-                <h2>📖 איך להעלות את הקובץ ל-GitHub</h2>
-                <ol style="text-align: right; line-height: 1.8;">
-                    <li>לחץ על "הורד קובץ" למעלה</li>
-                    <li>לך ל-GitHub repository: <strong>MosheDvora/eyal-advisory</strong></li>
-                    <li>לחץ על הקובץ <code>content.json</code></li>
-                    <li>לחץ על העיפרון (Edit) בצד ימין</li>
-                    <li>מחק את כל התוכן הישן</li>
-                    <li>פתח את הקובץ שהורדת והעתק את כל התוכן</li>
-                    <li>הדבק בעורך ב-GitHub</li>
-                    <li>גלול למטה ולחץ "Commit changes"</li>
-                    <li>המתן 1-2 דקות ל-Netlify לעדכן את האתר</li>
-                </ol>
             </div>
         </div>
-    </div>
+    </main>
 
-    <script>
-        // Password Configuration
-        const ADMIN_PASSWORD_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'; // admin123
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 
-        let contentData = null;
-
-        // SHA-256 hash function
-        async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            return hashHex;
-        }
-
-        // Load content from JSON
-        async function loadContent() {
-            try {
-                const response = await fetch('../content.json');
-                contentData = await response.json();
-                populateForm(contentData);
-            } catch (error) {
-                console.error('Error loading content:', error);
-                alert('שגיאה בטעינת התוכן');
-            }
-        }
-
-        // Populate form with data
-        function populateForm(data) {
-            // Hero
-            document.getElementById('hero_title_line1').value = data.hero.title_line1 || '';
-            document.getElementById('hero_title_line2').value = data.hero.title_line2 || '';
-            document.getElementById('hero_description').value = data.hero.description || '';
-            document.getElementById('hero_button_primary').value = data.hero.button_primary || '';
-            document.getElementById('hero_button_secondary').value = data.hero.button_secondary || '';
-
-            // Stats
-            document.getElementById('stats_years').value = data.stats.years || 0;
-            document.getElementById('stats_clients').value = data.stats.clients || 0;
-            document.getElementById('stats_transactions').value = data.stats.transactions || 0;
-            document.getElementById('stats_satisfaction').value = data.stats.satisfaction || 0;
-
-            // About
-            document.getElementById('about_subtitle').value = data.about.subtitle || '';
-            document.getElementById('about_title').value = data.about.title || '';
-            document.getElementById('about_description1').value = data.about.description1 || '';
-            document.getElementById('about_description2').value = data.about.description2 || '';
-
-            // Services
-            document.getElementById('services_subtitle').value = data.services.subtitle || '';
-            document.getElementById('services_title').value = data.services.title || '';
-
-            data.services.items.forEach((item, index) => {
-                const num = index + 1;
-                document.getElementById(`service${num}_title`).value = item.title || '';
-                document.getElementById(`service${num}_description`).value = item.description || '';
-            });
-
-            // Contact
-            document.getElementById('contact_title').value = data.contact.title || '';
-            document.getElementById('contact_description').value = data.contact.description || '';
-            document.getElementById('contact_address_line1').value = data.contact.address_line1 || '';
-            document.getElementById('contact_address_line2').value = data.contact.address_line2 || '';
-            document.getElementById('contact_phone').value = data.contact.phone || '';
-            document.getElementById('contact_email').value = data.contact.email || '';
-        }
-
-        // Get form data
-        function getFormData() {
-            const data = JSON.parse(JSON.stringify(contentData)); // Clone
-
-            // Hero
-            data.hero.title_line1 = document.getElementById('hero_title_line1').value;
-            data.hero.title_line2 = document.getElementById('hero_title_line2').value;
-            data.hero.description = document.getElementById('hero_description').value;
-            data.hero.button_primary = document.getElementById('hero_button_primary').value;
-            data.hero.button_secondary = document.getElementById('hero_button_secondary').value;
-
-            // Stats
-            data.stats.years = parseInt(document.getElementById('stats_years').value);
-            data.stats.clients = parseInt(document.getElementById('stats_clients').value);
-            data.stats.transactions = parseInt(document.getElementById('stats_transactions').value);
-            data.stats.satisfaction = parseInt(document.getElementById('stats_satisfaction').value);
-
-            // About
-            data.about.subtitle = document.getElementById('about_subtitle').value;
-            data.about.title = document.getElementById('about_title').value;
-            data.about.description1 = document.getElementById('about_description1').value;
-            data.about.description2 = document.getElementById('about_description2').value;
-
-            // Services
-            data.services.subtitle = document.getElementById('services_subtitle').value;
-            data.services.title = document.getElementById('services_title').value;
-
-            for (let i = 0; i < 4; i++) {
-                const num = i + 1;
-                data.services.items[i].title = document.getElementById(`service${num}_title`).value;
-                data.services.items[i].description = document.getElementById(`service${num}_description`).value;
-            }
-
-            // Contact
-            data.contact.title = document.getElementById('contact_title').value;
-            data.contact.description = document.getElementById('contact_description').value;
-            data.contact.address_line1 = document.getElementById('contact_address_line1').value;
-            data.contact.address_line2 = document.getElementById('contact_address_line2').value;
-            data.contact.phone = document.getElementById('contact_phone').value;
-            data.contact.email = document.getElementById('contact_email').value;
-
-            return data;
-        }
-
-        // Check authentication
-        function checkAuth() {
-            const isAuthenticated = sessionStorage.getItem('cms_auth') === 'true';
-            if (isAuthenticated) {
-                showCMS();
-            }
-        }
-
-        // Show CMS
-        function showCMS() {
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('cms-container').classList.add('show');
-            loadContent();
-        }
-
-        // Login form handler
-        document.getElementById('login-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const passwordInput = document.getElementById('password');
-            const errorMessage = document.getElementById('error-message');
-            const password = passwordInput.value;
-
-            const hashedPassword = await sha256(password);
-
-            if (hashedPassword === ADMIN_PASSWORD_HASH) {
-                sessionStorage.setItem('cms_auth', 'true');
-                showCMS();
-            } else {
-                errorMessage.classList.add('show');
-                passwordInput.value = '';
-                passwordInput.focus();
-
-                setTimeout(() => {
-                    errorMessage.classList.remove('show');
-                }, 3000);
-            }
-        });
-
-        // Logout handler
-        document.getElementById('logout-btn').addEventListener('click', function() {
-            sessionStorage.removeItem('cms_auth');
-            location.reload();
-        });
-
-        // Save form
-        document.getElementById('cms-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            contentData = getFormData();
-
-            const successMessage = document.getElementById('success-message');
-            successMessage.classList.add('show');
-
-            document.getElementById('download-btn').disabled = false;
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 5000);
-        });
-
-        // Download button
-        document.getElementById('download-btn').addEventListener('click', function() {
-            const dataStr = JSON.stringify(contentData, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'content.json';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-
-            alert('הקובץ הורד בהצלחה! עכשיו העלה אותו ל-GitHub לפי ההוראות למטה.');
-        });
-
-        // Check authentication on page load
-        checkAuth();
-    </script>
+    <script src="admin.js"></script>
 </body>
+
 </html>
